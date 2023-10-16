@@ -1,4 +1,4 @@
-import { OrganizationRepository } from '@/repositories/organizations-repository'
+import { OrganizationsRepository } from '@/repositories/organizations-repository'
 import { Prisma } from '@prisma/client'
 import { hash } from 'bcryptjs'
 import { OrganizationAlreadyExistsError } from './errors/organization-already-exists-error'
@@ -6,7 +6,7 @@ import { OrganizationAlreadyExistsError } from './errors/organization-already-ex
 type CreateOrganizationUseCaseParams = Prisma.OrganizationUncheckedCreateInput
 
 export class CreateOrganizationUseCase {
-  constructor(private organizationsRepository: OrganizationRepository) {}
+  constructor(private organizationsRepository: OrganizationsRepository) {}
 
   async execute({
     address,
@@ -25,7 +25,7 @@ export class CreateOrganizationUseCase {
 
     const passwordHash = await hash(password, 6)
 
-    await this.organizationsRepository.create({
+    const organization = await this.organizationsRepository.create({
       address,
       email,
       name,
@@ -33,5 +33,7 @@ export class CreateOrganizationUseCase {
       phone,
       responsible,
     })
+
+    return organization
   }
 }

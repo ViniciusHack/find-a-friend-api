@@ -1,4 +1,4 @@
-import { makeCreateOrganizationUseCase } from '@/useCases/factories/make-create-organization-use-case'
+import { makeCreateOrganizationUseCase } from '@/use-cases/factories/make-create-organization-use-case'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
