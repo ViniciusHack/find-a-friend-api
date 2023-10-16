@@ -10,8 +10,8 @@ datasource db {
 model Organization {
   id          String @id @default(uuid())
   responsible String
-  name        String @unique
-  email       String @unique
+  name        String
+  email       String
   phone       String @unique
   address     String
   password    String
