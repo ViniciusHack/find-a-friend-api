@@ -1,11 +1,15 @@
-import { PetRepository } from '@/repositories/pets-repository'
+import { OrganizationsRepository } from '@/repositories/organizations-repository'
+import { PetsRepository } from '@/repositories/pets-repository'
 import { Prisma } from '@prisma/client'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 type CreatePetParams = Prisma.PetUncheckedCreateInput
 
 export class CreatePetUseCase {
-  constructor(private petRepository: PetRepository) {}
+  constructor(
+    private petsRepository: PetsRepository,
+    private organizationsRepository: OrganizationsRepository,
+  ) {}
 
   async execute({
     name,
@@ -23,7 +27,7 @@ export class CreatePetUseCase {
       throw new ResourceNotFoundError()
     }
 
-    await this.petRepository.create({
+    const pet = await this.petsRepository.create({
       name,
       age,
       description,
@@ -33,5 +37,7 @@ export class CreatePetUseCase {
       organizationId,
       size,
     })
+
+    return pet
   }
 }

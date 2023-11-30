@@ -15,7 +15,7 @@ describe('Create Organization Use Case suite', () => {
 
   it('should be able to create organization successfully', async () => {
     const organization = await sut.execute({
-      address: 'Joinville/SC',
+      city: 'Joinville',
       email: 'john@doe.com',
       name: `John Doe's Org`,
       password: '123456',
@@ -28,7 +28,7 @@ describe('Create Organization Use Case suite', () => {
 
   it('should not be able to create organization when the phone already has been used', async () => {
     await sut.execute({
-      address: 'Joinville/SC',
+      city: 'Joinville',
       email: 'john@doe.com',
       name: `John Doe's Org`,
       password: '123456',
@@ -39,7 +39,7 @@ describe('Create Organization Use Case suite', () => {
     expect(
       async () =>
         await sut.execute({
-          address: 'Joinville/SC',
+          city: 'Joinville',
           email: 'john2@doe.com',
           name: `John Doe's Org 2`,
           password: '123456',

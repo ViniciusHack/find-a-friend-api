@@ -13,7 +13,7 @@ model Organization {
   name        String
   email       String
   phone       String @unique
-  address     String
+  city        String
   password    String
   pets        Pet[]
 
@@ -22,7 +22,7 @@ model Organization {
 
 model Pet {
   id             String          @id @default(uuid())
-  organizationId String
+  organizationId String          @map("organization_id")
   name           String
   description    String
   age            PetAge
@@ -43,11 +43,9 @@ enum PetAge {
 }
 
 enum PetSize {
-  XS
   SM
   MD
   LG
-  XL
 }
 
 enum PetEnergy {

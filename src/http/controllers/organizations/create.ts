@@ -6,7 +6,7 @@ const createOrganizationBodySchema = z.object({
   password: z.string(),
   name: z.string(),
   responsible: z.string(),
-  address: z.string(),
+  city: z.string(),
   email: z.string().email(),
   phone: z.string(),
 })

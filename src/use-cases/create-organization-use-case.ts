@@ -9,7 +9,7 @@ export class CreateOrganizationUseCase {
   constructor(private organizationsRepository: OrganizationsRepository) {}
 
   async execute({
-    address,
+    city,
     email,
     name,
     password,
@@ -26,7 +26,7 @@ export class CreateOrganizationUseCase {
     const passwordHash = await hash(password, 6)
 
     const organization = await this.organizationsRepository.create({
-      address,
+      city,
       email,
       name,
       password: passwordHash,
