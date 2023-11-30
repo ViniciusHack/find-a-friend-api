@@ -23,4 +23,11 @@ export class InMemoryOrganizationsRepository
 
     return organizationFound
   }
+
+  async findByEmail(email: string) {
+    const organizationFound =
+      this.items.find((organization) => organization.email === email) ?? null
+
+    return organizationFound
+  }
 }

@@ -34,6 +34,6 @@ export class CreateOrganizationUseCase {
       responsible,
     })
 
-    return organization
+    return { organization }
   }
 }

@@ -11,16 +11,16 @@ const createOrganizationBodySchema = z.object({
   phone: z.string(),
 })
 
-export async function createOrganization(
+export async function createOrganizationController(
   req: FastifyRequest,
   reply: FastifyReply,
 ) {
   const data = createOrganizationBodySchema.parse(req.body)
 
   const createOrganizationUseCase = makeCreateOrganizationUseCase()
-  const organizationCreated = await createOrganizationUseCase.execute(data)
+  const { organization } = await createOrganizationUseCase.execute(data)
 
   return reply.status(201).send({
-    organization: organizationCreated,
+    organization,
   })
 }

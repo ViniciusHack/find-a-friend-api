@@ -18,7 +18,7 @@ describe('Create Pet Use Case Suite', () => {
   })
 
   it('should be able to create a pet successfully', async () => {
-    const pet: Prisma.PetUncheckedCreateInput = {
+    const payload: Prisma.PetUncheckedCreateInput = {
       age: 'ADULT',
       description: 'Lindo cachorrinho amável',
       energy: 'MEDIUM',
@@ -28,8 +28,8 @@ describe('Create Pet Use Case Suite', () => {
       size: 'MD',
       organizationId: '1231312',
     }
-    const petReturn = await sut.execute(pet)
+    const { pet } = await sut.execute(payload)
 
-    expect(petReturn).toHaveProperty('id')
+    expect(pet).toHaveProperty('id')
   })
 })

@@ -38,6 +38,6 @@ export class CreatePetUseCase {
       size,
     })
 
-    return pet
+    return { pet }
   }
 }

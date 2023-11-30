@@ -11,7 +11,7 @@ model Organization {
   id          String @id @default(uuid())
   responsible String
   name        String
-  email       String
+  email       String @unique
   phone       String @unique
   city        String
   password    String

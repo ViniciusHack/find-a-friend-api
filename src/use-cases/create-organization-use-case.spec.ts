@@ -14,7 +14,7 @@ describe('Create Organization Use Case suite', () => {
   })
 
   it('should be able to create organization successfully', async () => {
-    const organization = await sut.execute({
+    const { organization } = await sut.execute({
       city: 'Joinville',
       email: 'john@doe.com',
       name: `John Doe's Org`,
