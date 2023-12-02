@@ -20,7 +20,6 @@ export class PrismaPetsRepository implements PetsRepository {
       }
     })
 
-    console.log({ filters })
     const pets: Pet[] = await prisma.$queryRaw`
       SELECT pets.* FROM pets
       INNER JOIN organizations on organizations.id = pets.organization_id AND organizations.city = ${
@@ -30,5 +29,15 @@ export class PrismaPetsRepository implements PetsRepository {
     `
 
     return pets
+  }
+
+  async findById(id: string) {
+    const pet = await prisma.pet.findUnique({
+      where: {
+        id,
+      },
+    })
+
+    return pet
   }
 }
