@@ -19,8 +19,6 @@ export async function createPetController(
   const { name, description, age, size, energy, independency, environment } =
     createPetBodySchema.parse(req.body)
 
-  await req.jwtVerify()
-
   const organizationId = req.user.sub
 
   try {

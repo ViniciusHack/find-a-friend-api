@@ -8,14 +8,15 @@ datasource db {
 }
 
 model Organization {
-  id          String @id @default(uuid())
+  id          String   @id @default(uuid())
   responsible String
   name        String
-  email       String @unique
-  phone       String @unique
+  email       String   @unique
+  phone       String   @unique
   city        String
   password    String
   pets        Pet[]
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz()
 
   @@map("organizations")
 }
@@ -30,6 +31,7 @@ model Pet {
   energy         PetEnergy
   independency   PetIndependency
   environment    PetEnvironment
+  createdAt      DateTime        @default(now()) @map("created_at") @db.Timestamptz()
 
   organization Organization @relation(fields: [organizationId], references: [id])
 

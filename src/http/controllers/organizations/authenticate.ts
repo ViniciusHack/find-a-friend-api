@@ -32,7 +32,23 @@ export async function authenticateOrganizationController(
       },
     )
 
-    return reply.status(200).send({ token })
+    const refreshToken = await reply.jwtSign(
+      {},
+      {
+        sub: organization.id,
+        expiresIn: '7d',
+      },
+    )
+
+    return reply
+      .status(200)
+      .setCookie('refreshToken', refreshToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: true,
+        path: '/',
+      })
+      .send({ token })
   } catch (err) {
     if (err instanceof OrganizationInvalidCredentialsError) {
       return reply.status(err.code).send({ message: err.message })
