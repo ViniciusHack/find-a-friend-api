@@ -12,12 +12,21 @@ let petsRepository: PetsRepository
 
 describe('Create Pet Use Case Suite', () => {
   beforeEach(() => {
-    petsRepository = new InMemoryPetsRepository()
     organizationsRepository = new InMemoryOrganizationsRepository()
+    petsRepository = new InMemoryPetsRepository(organizationsRepository)
     sut = new CreatePetUseCase(petsRepository, organizationsRepository)
   })
 
   it('should be able to create a pet successfully', async () => {
+    const { id } = await organizationsRepository.create({
+      city: 'Joinville',
+      email: 'john@doe.com',
+      name: `John Doe's Org`,
+      password: '123456',
+      phone: '+5547123456789',
+      responsible: 'John Doe',
+    })
+
     const payload: Prisma.PetUncheckedCreateInput = {
       age: 'ADULT',
       description: 'Lindo cachorrinho amável',
@@ -26,7 +35,7 @@ describe('Create Pet Use Case Suite', () => {
       independency: 'LOW',
       name: 'Belinha',
       size: 'MD',
-      organizationId: '1231312',
+      organizationId: id,
     }
     const { pet } = await sut.execute(payload)
 

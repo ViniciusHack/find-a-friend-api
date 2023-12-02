@@ -1,6 +1,6 @@
 import { prisma } from '@/lib/prisma'
-import { Prisma } from '@prisma/client'
-import { PetsRepository } from '../pets-repository'
+import { Pet, Prisma } from '@prisma/client'
+import { FindManyPetsParams, PetsRepository } from '../pets-repository'
 
 export class PrismaPetsRepository implements PetsRepository {
   async create(data: Prisma.PetUncheckedCreateInput) {
@@ -9,5 +9,26 @@ export class PrismaPetsRepository implements PetsRepository {
     })
 
     return pet
+  }
+
+  async findMany(data: FindManyPetsParams) {
+    let filters = `WHERE TRUE`
+
+    Object.entries(data).forEach(([key, value]) => {
+      if (key !== 'city' && value !== undefined) {
+        filters += ` AND pets.${key} = '${value}'`
+      }
+    })
+
+    console.log({ filters })
+    const pets: Pet[] = await prisma.$queryRaw`
+      SELECT pets.* FROM pets
+      INNER JOIN organizations on organizations.id = pets.organization_id AND organizations.city = ${
+        data.city
+      }
+      ${filters !== 'WHERE TRUE' ? Prisma.raw(filters) : Prisma.empty}
+    `
+
+    return pets
   }
 }

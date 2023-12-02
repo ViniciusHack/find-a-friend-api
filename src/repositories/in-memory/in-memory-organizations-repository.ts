@@ -11,6 +11,7 @@ export class InMemoryOrganizationsRepository
     const organization: Organization = {
       ...data,
       id: randomUUID(),
+      createdAt: new Date(),
     }
 
     this.items.push(organization)
