@@ -19,7 +19,9 @@ export async function createPetController(
   const { name, description, age, size, energy, independency, environment } =
     createPetBodySchema.parse(req.body)
 
-  const organizationId = 'TO-DO'
+  await req.jwtVerify()
+
+  const organizationId = req.user.sub
 
   try {
     const createPetUseCase = makeCreatePetUseCase()
@@ -37,6 +39,6 @@ export async function createPetController(
       pet,
     })
   } catch (err) {
-    throw err
+    return reply.status(400).send(err)
   }
 }

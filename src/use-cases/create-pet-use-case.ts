@@ -21,9 +21,10 @@ export class CreatePetUseCase {
     organizationId,
     size,
   }: CreatePetParams) {
-    const orgFound = true
+    const organization =
+      await this.organizationsRepository.findById(organizationId)
 
-    if (!orgFound) {
+    if (!organization) {
       throw new ResourceNotFoundError()
     }
 
