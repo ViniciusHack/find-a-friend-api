@@ -11,7 +11,7 @@ describe('Authenticate Organization (e2e)', () => {
     await app.close()
   })
 
-  it('should be able to register an organization', async () => {
+  it('should be able to authenticate an organization', async () => {
     await request(app.server).post('/organizations').send({
       password: 'MY_PASSWORD',
       name: "John Doe Pet's Organization",
