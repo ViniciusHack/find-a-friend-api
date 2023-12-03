@@ -20,7 +20,6 @@ export async function listPetsController(
     const listPetsUseCase = makeListPetsUseCase()
 
     const filters = listPetsQuerySchema.parse(req.query)
-    console.log({ ...filters })
     const pets = await listPetsUseCase.execute({ ...filters })
 
     return reply.status(200).send({ pets })
